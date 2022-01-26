@@ -1,16 +1,28 @@
 /// <reference types="cypress" />
 describe('bankSuite', () => {
-    it('zero bank', () => {
+    it.only('zero bank', () => {
         cy.loginToBank()
 
-        cy.get('.nav')
-          .children()
-          .should('contain', 'Account Summary')
-          .and('contain', 'Account Activity')
-          .and('contain', 'Transfer Funds')
-          .and('contain', 'Pay Bills')
-          .and('contain', 'My Money Map')
-          .and('contain', 'Online Statements')
+        cy.get('#account_activity_tab')
+          .click()
+          .get('#tabs')
+          .should('contain', 'Show Transactions')
+          .get('#transfer_funds_tab')
+          .click()
+          .get('#transfer_funds_content')
+          .should('contain', 'Transfer Money & Make Payments')
+          .get('#pay_bills_tab')
+          .click()
+          .get('#tabs')
+          .should('contain', 'Make payments to your saved payees')
+          .get('#money_map_tab')
+          .click()
+          .get('#report')
+          .should('contain', 'Total')
+          .get('#online_statements_tab')
+          .click()
+          .get('#online_statements_for_account')
+          .should('contain', 'Recent Statements')
 
         cy.get('.brand')
           .click()
